@@ -1,0 +1,19 @@
+[Unit]
+Description=AgentRoom private execution adapter
+After=network.target cloudroom.service
+
+[Service]
+Type=simple
+User=agentroom
+Group=agentroom
+WorkingDirectory=/opt/agentroom/backend
+EnvironmentFile=/etc/agentroom/execution.env
+ExecStart=/opt/agentroom/backend/.venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+UMask=0077
+# This service alone needs the exact sudo rule below to become the agent user.
+# Do not apply NoNewPrivileges to this unit: that would disable the scoped sudo.
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+# Install with visudo -cf first; script and its parent directories must be root-owned.
+# The agent account itself receives no sudo access.
+agentroom ALL=(cloudroom-agent) NOPASSWD: /usr/bin/python3 /opt/agentroom/backend/workspace_worker.py
