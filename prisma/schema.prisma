@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+  output = "../node_modules/.prisma/client"
+  engineType = "client"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+model Thread {
+  id           String   @id
+  title        String
+  sessionId    String   @unique
+  baseCommit   String?
+  workspace    String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  admissionKey String?  @unique
+  pendingId    String?
+  commands     Command[]
+  reviews      Review[]
+}
+model Command {
+  id          String   @id
+  threadId    String
+  kind        String
+  payloadHash String
+  payload     Json
+  createdAt   DateTime @default(now())
+  thread      Thread   @relation(fields: [threadId], references: [id])
+  @@index([threadId, createdAt])
+}
+model Review {
+  id        String   @id @default(cuid())
+  threadId  String
+  snapshot  String
+  decision  String
+  createdAt DateTime @default(now())
+  thread    Thread   @relation(fields: [threadId], references: [id])
+  @@unique([threadId, snapshot])
+}

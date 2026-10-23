@@ -1,0 +1,20 @@
+name: agentroom
+services:
+  postgres:
+    image: postgres:17-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: agentroom
+      POSTGRES_USER: agentroom
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U agentroom -d agentroom"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+volumes:
+  postgres:

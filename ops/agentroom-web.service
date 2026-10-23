@@ -1,0 +1,22 @@
+[Unit]
+Description=AgentRoom web application
+After=network.target
+
+[Service]
+Type=simple
+User=agentroom
+Group=agentroom
+WorkingDirectory=/opt/agentroom
+EnvironmentFile=/etc/agentroom/web.env
+Environment=NODE_ENV=production
+ExecStart=/usr/bin/node /opt/agentroom/node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3000
+Restart=on-failure
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/agentroom/.next
+
+[Install]
+WantedBy=multi-user.target

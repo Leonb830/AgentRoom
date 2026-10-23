@@ -1,0 +1,9 @@
+{
+  "coreRepository": "https://github.com/davidondrej/cloudroom-core",
+  "coreCommit": "7d25d300f8ca564beb16541118f13daf89512a14",
+  "coreVersion": "0.1.69",
+  "sourceArchiveSha256": "5d888f5b8a2775a2882a0aa320d3a1f98ea71e46d22764ef571606f4969915c9",
+  "codexPackage": "@openai/codex@0.154.0",
+  "rustVersion": "1.89.0",
+  "note": "The core-v0.1.69 release archive reports commit d0496077668dea1dc2aa115dd937979fe7cb68ff. Build the pinned source; do not substitute that release binary."
+}
